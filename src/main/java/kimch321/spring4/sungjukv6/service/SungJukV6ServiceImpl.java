@@ -2,16 +2,18 @@ package kimch321.spring4.sungjukv6.service;
 
 
 import kimch321.spring4.sungjukv6.dao.SungJukV6DAO;
+import kimch321.spring4.sungjukv6.dao.SungJukV6DAOImpl;
 import kimch321.spring4.sungjukv6.model.SungJukVO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.InputMismatchException;
 import java.util.List;
 
 @Service("sjsrv")
 public class SungJukV6ServiceImpl implements SungJukV6Service {
-    private List<SungJukVO> sjs = null;
+    private static final Logger logger = LogManager.getLogger(SungJukV6ServiceImpl.class);
     private SungJukV6DAO sjdao = null;
 
     @Autowired
@@ -20,9 +22,10 @@ public class SungJukV6ServiceImpl implements SungJukV6Service {
     }
 
     public boolean newSungJuk(SungJukVO sj) {
-        sjdao.insertSungJuk(sj);
+        this.computeSungJuk(sj);
+        logger.info(sj);
 
-        return false;
+        return sjdao.insertSungJuk(sj) > 0;
     }
 
     // 성적 리스트 받아옴
@@ -32,9 +35,8 @@ public class SungJukV6ServiceImpl implements SungJukV6Service {
     }
 
     public SungJukVO readOneSungJuk(int sjno) {
-        SungJukVO sj = null;
 
-        return sj;
+        return sjdao.selectOneSungJuk(sjno);
     }
 
     public boolean modifySungJuk(SungJukVO sj) {
@@ -44,7 +46,7 @@ public class SungJukV6ServiceImpl implements SungJukV6Service {
 
     public boolean removeSungJuk(int sjno) {
 
-        return false;
+        return sjdao.deleteSungJuk(sjno) > 0;
     }
 
     public void computeSungJuk(SungJukVO sj) {

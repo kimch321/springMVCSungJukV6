@@ -14,7 +14,12 @@
             for(SungJuk sj : sjs)
         --%>
         <c:forEach items="${sjs}" var="sj">
-            <tr><td>${sj.name}</td><td>${sj.kor}</td><td>${sj.eng}</td><td>${sj.mat}</td></tr>
+            <tr>
+                <td><a href="/view?sjno=${sj.sjno}">${sj.name}</a></td>
+                <td>${sj.kor}</td>
+                <td>${sj.eng}</td>
+                <td>${sj.mat}</td>
+            </tr>
         </c:forEach>
 
     </table>
