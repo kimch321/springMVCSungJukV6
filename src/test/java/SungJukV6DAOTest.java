@@ -8,8 +8,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 //단위unit 테스트
 // 하나의 모듈을 기준으로 독립적으로 진행되는 가장 작은 단위의 테스트
@@ -47,6 +46,18 @@ public class SungJukV6DAOTest {
         SungJukVO sjs = new SungJukVO("송은채", 90,100,80);
         int cnt = sjdao.insertSungJuk(sjs);
         System.out.println(cnt);
+    }
+
+    @Test
+    public void test4() {
+        System.out.println(">> Test 4 시작 <<");
+        SungJukVO sj = new SungJukVO(null,11,22,33);
+        sj.setSjno(4);
+        sj.setTot(0);
+        sj.setAvg(0.0);
+        sj.setGrd('가');
+
+        assertEquals(1, sjdao.updateSungJuk(sj));
     }
 
 }
